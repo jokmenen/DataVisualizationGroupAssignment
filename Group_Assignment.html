@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Group Project DV</title>
+		<script type="text/javascript" src="../d3/d3.v3.js"></script>
+		<style type="text/css">
+			/* No style rules here yet */		
+		</style>
+	</head>
+	<body>
+	
+	<div class="slidecontainer">
+		<input type="range" min="1" max="100" value="50" class="slider" id="timeSlider">
+	</div>
+		<script type="text/javascript">
+		
+			var dataset = [1,2,3,4];
+		
+			console.log("h");		
+			var w = 500;
+			var h = 300;
+			
+			var rows = [];
+			
+			var slider = d3.select("#timeSlider");
+			
+			
+						
+						
+			d3.csv("test.csv", function(data){
+				var i = 0;
+				console.log(data[0])
+				data.forEach(function(d){
+					i += 1;
+					
+					rows.push([d[" gaze_0_x"],d[" gaze_0_y"]]);
+					
+				
+				});
+				
+				
+				
+			
+			});
+				
+			var svg = d3.select("body")
+					.append("svg")
+					.attr("width", w)
+					.attr("height", h);
+					
+					
+				
+				 
+			  slider.on("change",function() {
+			 
+				console.log(this.value)
+				
+				svg.selectAll("circle")
+					.remove()
+				 
+				 svg.selectAll("circle")
+					.data(this.value)
+					.enter()
+					.append("circle")
+					.attr("cx", function(d){ 
+											var x = rows[d][0]*1000;
+											//console.log("x",x);
+											return x;
+											})
+					.attr("cy", function(d){ var y = rows[d][1]*1000;
+											//console.log("y",y);
+											return y;	})
+					.attr("r", "20")
+					.style("fill", "purple")
+					.attr("id",this.value);
+				 
+						
+				console.log(rows[this.value][0],this.value);
+				
+				
+			});
+			
+			//console.log(rows[33])
+			
+			
+			
+						
+			
+						
+		</script>
+		
+		
+		
+	</body>
+</html>
